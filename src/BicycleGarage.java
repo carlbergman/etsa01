@@ -28,6 +28,7 @@ public class BicycleGarage {
 	 */
 	public static void main(String[] args) {
 		new BicycleGarage();
+		System.out.println("Hej");
 	}
 
 }
