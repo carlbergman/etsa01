@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 
 
 /**
@@ -15,7 +17,9 @@ public class BicycleGarage {
 		ElectronicLock exitLock = new ElectronicLockTestDriver("Exit lock");
 		BarcodePrinter printer = new BarcodePrinterTestDriver();
 		PinCodeTerminal terminal = new PinCodeTerminalTestDriver();
-		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal);
+		HashMap<String, Bike> bikes = new HashMap<String, Bike>();
+		HashMap<Integer, User> users = new HashMap<Integer, User>();
+		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal, bikes, users);
 		terminal.register(manager);
 		BarcodeReader readerEntry = new BarcodeReaderEntryTestDriver();
 		BarcodeReader readerExit = new BarcodeReaderExitTestDriver();
