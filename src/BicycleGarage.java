@@ -14,8 +14,8 @@ public class BicycleGarage {
 	 * Constructor
 	 */
 	public BicycleGarage() {
-		HashMap<String, Bike> bikes = new HashMap<String, Bike>();
-		HashMap<Integer, User> users = new HashMap<Integer, User>();
+		HashMap<String, Bike> bikes = loadBikes();
+		HashMap<Integer, User> users = loadUsers();
 		
 		BicycleGarageManager manager = new BicycleGarageManager(users,bikes);
 		ElectronicLock entryLock = new ElectronicLockTestDriver("Entry lock");
