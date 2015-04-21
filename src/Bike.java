@@ -5,16 +5,16 @@
  */
 public class Bike {
 
-	private String id;
+	private String barcode;
 	private User user;
 
 	/**
 	 * Bike constructor
-	 * @param id The barcode id
+	 * @param barcode The barcode
 	 * @param user The user (owner)
 	 */
 	public Bike (String id, User user) {
-		this.id = id;
+		this.barcode = id;
 		this.user = user;
 	}
 	
@@ -27,11 +27,11 @@ public class Bike {
 	}
 	
 	/**
-	 * Get barcode id
-	 * @return String the barcode id
+	 * Get barcode
+	 * @return String the barcode
 	 */
 	public String getId () {
-		return id;
+		return barcode;
 	}
 
 }
