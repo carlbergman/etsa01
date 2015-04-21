@@ -22,14 +22,7 @@ public class BicycleGarage {
 		ElectronicLock exitLock = new ElectronicLockTestDriver("Exit lock");
 		BarcodePrinter printer = new BarcodePrinterTestDriver();
 		PinCodeTerminal terminal = new PinCodeTerminalTestDriver();
-<<<<<<< Updated upstream
-		HashMap<String, Bike> bikes = new HashMap<String, Bike>();
-		HashMap<Integer, User> users = new HashMap<Integer, User>();
-		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal,
-				bikes, users);
-=======
 		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal);
->>>>>>> Stashed changes
 		terminal.register(manager);
 		BarcodeReader readerEntry = new BarcodeReaderEntryTestDriver();
 		BarcodeReader readerExit = new BarcodeReaderExitTestDriver();
@@ -103,7 +96,7 @@ public class BicycleGarage {
 	}
 
 	/**
-	 * Write bikes
+	 * Write bikes 
 	 * @return false if unable to write to file, otherwise true
 	 */
 	public boolean writeBikes(HashMap<String, Bike> bikes) {
