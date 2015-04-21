@@ -8,28 +8,34 @@ public class BicycleGarageManager {
 	private PinCodeTerminal terminal;
 	private HashMap<String, Bike> bikes;
 	private HashMap<Integer, User> users;
+	
+	public BicycleGarageManager(HashMap<Integer, User> users,HashMap<String, Bike> bikes){
+		this.users=users;
+		this.bikes=bikes;
+	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,
 			ElectronicLock entryLock, ElectronicLock exitLock,
-			PinCodeTerminal terminal, HashMap<String, Bike> bikes,
-			HashMap<Integer, User> users) {
-
+			PinCodeTerminal terminal) {
 		this.printer = printer;
 		this.entryLock = entryLock;
 		this.exitLock = exitLock;
 		this.terminal = terminal;
-		this.bikes = bikes;
-		this.users = users;
-
 	}
 
 	public void entryBarcode(String code) {
-		// TODO Auto-generated method stub
-
+		if(bikes.containsKey(code)){
+			entryLock.open(15);
+			terminal.lightLED(1, 15);
+		}else{
+			terminal.lightLED(0,5);
+		}
 	}
 
 	public void entryCharacter(char c) {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
 }

@@ -14,15 +14,22 @@ public class BicycleGarage {
 	 * Constructor
 	 */
 	public BicycleGarage() {
-		BicycleGarageManager manager = new BicycleGarageManager();
+		HashMap<String, Bike> bikes = new HashMap<String, Bike>();
+		HashMap<Integer, User> users = new HashMap<Integer, User>();
+		
+		BicycleGarageManager manager = new BicycleGarageManager(users,bikes);
 		ElectronicLock entryLock = new ElectronicLockTestDriver("Entry lock");
 		ElectronicLock exitLock = new ElectronicLockTestDriver("Exit lock");
 		BarcodePrinter printer = new BarcodePrinterTestDriver();
 		PinCodeTerminal terminal = new PinCodeTerminalTestDriver();
+<<<<<<< Updated upstream
 		HashMap<String, Bike> bikes = new HashMap<String, Bike>();
 		HashMap<Integer, User> users = new HashMap<Integer, User>();
 		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal,
 				bikes, users);
+=======
+		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal);
+>>>>>>> Stashed changes
 		terminal.register(manager);
 		BarcodeReader readerEntry = new BarcodeReaderEntryTestDriver();
 		BarcodeReader readerExit = new BarcodeReaderExitTestDriver();
