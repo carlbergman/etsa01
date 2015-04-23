@@ -44,18 +44,17 @@ public class BicycleGarage {
 	 *            The file
 	 * @return The object from the file or a new object.
 	 */
-	public Object loadObjectFromFile(String filename) {
+	public HashMap<?, ?> loadObjectFromFile(String filename) {
 
-		Object temp;
+		HashMap<?, ?> temp;
 
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
 					filename));
-			temp = in.readObject();
+			temp = (HashMap<?, ?>) in.readObject();
 			in.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return temp = new Object();
+			return temp = new HashMap();
 		}
 
 		return temp;
@@ -70,7 +69,7 @@ public class BicycleGarage {
 	 *            The file
 	 * @return true if object was written, otherwise false.
 	 */
-	public boolean writeObjectToFile(Object o, String filename) {
+	public boolean writeObjectToFile(HashMap<?, ?> o, String filename) {
 
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(
