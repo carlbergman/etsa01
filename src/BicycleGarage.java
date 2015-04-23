@@ -77,7 +77,7 @@ public class BicycleGarage {
 			out.writeObject(o);
 			out.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 
