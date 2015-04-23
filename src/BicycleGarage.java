@@ -14,10 +14,10 @@ public class BicycleGarage {
 	 * Constructor
 	 */
 	public BicycleGarage() {
-		HashMap<String, Bike> bikes = loadBikes();
-		HashMap<Integer, User> users = loadUsers();
-		
-		BicycleGarageManager manager = new BicycleGarageManager(users,bikes);
+		HashMap<String, Bike> bikes = (HashMap<String, Bike>) loadObjectFromFile("bikes.txt");
+		HashMap<Integer, User> users = (HashMap<Integer, User>) loadObjectFromFile("users.txt");
+
+		BicycleGarageManager manager = new BicycleGarageManager(users, bikes);
 		ElectronicLock entryLock = new ElectronicLockTestDriver("Entry lock");
 		ElectronicLock exitLock = new ElectronicLockTestDriver("Exit lock");
 		BarcodePrinter printer = new BarcodePrinterTestDriver();
@@ -38,72 +38,44 @@ public class BicycleGarage {
 	}
 
 	/**
-	 * Load users
-	 * @return users hashmap if file was readable, otherwise empty hashmap.
+	 * Get object from file
+	 * 
+	 * @param filename
+	 *            The file
+	 * @return The object from the file or a new object.
 	 */
-	public HashMap<Integer, User> loadUsers() {
+	public Object loadObjectFromFile(String filename) {
 
-		HashMap<Integer, User> temp;
-		
+		Object temp;
+
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream("users.txt"));
-			temp = (HashMap<Integer, User>) in.readObject();
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
+					filename));
+			temp = in.readObject();
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return temp = new HashMap<Integer, User>();
+			return temp = new Object();
 		}
 
 		return temp;
 	}
 
 	/**
-	 * Write users
-	 * @return false if unable to write to file, otherwise true
+	 * Write an object to file
+	 * 
+	 * @param o
+	 *            The object
+	 * @param filename
+	 *            The file
+	 * @return true if object was written, otherwise false.
 	 */
-	public boolean writeUsers(HashMap<Integer, User> users) {
+	public boolean writeObjectToFile(Object o, String filename) {
 
 		try {
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("users.txt"));
-			out.writeObject(users);
-			out.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-
-		return true;
-	}
-	
-	/**
-	 * Load bikes
-	 * @return bikes hashmap if file was readable, otherwise empty hashmap.
-	 */
-	public HashMap<String, Bike> loadBikes() {
-
-		HashMap<String, Bike> temp;
-		
-		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream("bikes.txt"));
-			temp = (HashMap<String, Bike>) in.readObject();
-			in.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return temp = new HashMap<String, Bike>();
-		}
-
-		return temp;
-	}
-
-	/**
-	 * Write bikes 
-	 * @return false if unable to write to file, otherwise true
-	 */
-	public boolean writeBikes(HashMap<String, Bike> bikes) {
-
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("bikes.txt"));
-			out.writeObject(bikes);
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream(filename));
+			out.writeObject(o);
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
