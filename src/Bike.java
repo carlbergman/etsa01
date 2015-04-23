@@ -5,8 +5,8 @@
  */
 public class Bike {
 
-	private String barcode;
-	private User user;
+	private String barcode;		// Bike identifier
+	private User user;			// Bike owner
 
 	/**
 	 * Bike constructor

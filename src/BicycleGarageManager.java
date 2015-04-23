@@ -10,6 +10,7 @@ public class BicycleGarageManager {
 	private ElectronicLock exitLock;
 	private PinCodeTerminal terminal;
 	private HashMap<String, Bike> bikes;
+<<<<<<< HEAD
 	private HashMap<Integer, User> users;
 	private ArrayList<Character> pincode;
 	private StringBuilder sb;
@@ -19,6 +20,13 @@ public class BicycleGarageManager {
 		this.bikes=bikes;
 		pincode=new ArrayList<Character>();
 		sb=new StringBuilder();
+=======
+	private HashMap<String, User> users;
+	
+	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
+		this.users = users;
+		this.bikes = bikes;
+>>>>>>> origin/master
 	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,
@@ -56,6 +64,11 @@ public class BicycleGarageManager {
 			sb.setLength(0);
 			pincode.clear();
 		}
+	}
+
+	public void newUser(String name) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	class RemindTask extends TimerTask{

@@ -5,7 +5,7 @@
  */
 public class User {
 
-	private int pin;		// Person pin code
+	private String pin;		// Person pin code
 	private String name;	// Person name
 	private String pn;		// Personal id number
 	
@@ -15,17 +15,17 @@ public class User {
 	 * @param name User name
 	 * @param pn User personal id number
 	 */
-	public User (int pin, String name, String pn) {
+	public User (String pin, String name, String pn) {
 		this.pin = pin;
 		this.name = name;
-		this.pn = pn;		
+		this.pn = pn;
 	}
 	
 	/**
 	 * Get pin code
 	 * @return int the pin code
 	 */
-	public int getPin () {
+	public String getPin () {
 		return pin;
 	}
 	
