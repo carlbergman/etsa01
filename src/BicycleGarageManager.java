@@ -12,10 +12,12 @@ public class BicycleGarageManager {
 	private HashMap<String, Bike> bikes;
 <<<<<<< HEAD
 	private HashMap<Integer, User> users;
+	private HashMap<String, User> users;
 	private ArrayList<Character> pincode;
 	private StringBuilder sb;
 	
 	public BicycleGarageManager(HashMap<Integer, User> users,HashMap<String, Bike> bikes){
+	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
 		this.users=users;
 		this.bikes=bikes;
 		pincode=new ArrayList<Character>();
