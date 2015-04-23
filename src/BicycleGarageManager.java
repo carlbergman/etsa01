@@ -7,11 +7,11 @@ public class BicycleGarageManager {
 	private ElectronicLock exitLock;
 	private PinCodeTerminal terminal;
 	private HashMap<String, Bike> bikes;
-	private HashMap<Integer, User> users;
+	private HashMap<String, User> users;
 	
-	public BicycleGarageManager(HashMap<Integer, User> users,HashMap<String, Bike> bikes){
-		this.users=users;
-		this.bikes=bikes;
+	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
+		this.users = users;
+		this.bikes = bikes;
 	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,

@@ -15,7 +15,7 @@ public class BicycleGarage {
 	 */
 	public BicycleGarage() {
 		HashMap<String, Bike> bikes = (HashMap<String, Bike>) loadObjectFromFile("bikes.txt");
-		HashMap<Integer, User> users = (HashMap<Integer, User>) loadObjectFromFile("users.txt");
+		HashMap<String, User> users = (HashMap<String, User>) loadObjectFromFile("users.txt");
 
 		BicycleGarageManager manager = new BicycleGarageManager(users, bikes);
 		ElectronicLock entryLock = new ElectronicLockTestDriver("Entry lock");
