@@ -18,7 +18,7 @@ public class User {
 	public User (String pin, String name, String pn) {
 		this.pin = pin;
 		this.name = name;
-		this.pn = pn;		
+		this.pn = pn;
 	}
 	
 	/**

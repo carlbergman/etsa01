@@ -36,6 +36,11 @@ public class BicycleGarageManager {
 		// TODO Auto-generated method stub
 
 	}
+
+	public void newUser(String name) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

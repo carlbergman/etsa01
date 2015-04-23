@@ -18,16 +18,24 @@ public class BicycleGarage {
 		HashMap<String, User> users = (HashMap<String, User>) loadObjectFromFile("users.txt");
 
 		BicycleGarageManager manager = new BicycleGarageManager(users, bikes);
+
 		ElectronicLock entryLock = new ElectronicLockTestDriver("Entry lock");
 		ElectronicLock exitLock = new ElectronicLockTestDriver("Exit lock");
 		BarcodePrinter printer = new BarcodePrinterTestDriver();
+
 		PinCodeTerminal terminal = new PinCodeTerminalTestDriver();
-		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal);
 		terminal.register(manager);
+
 		BarcodeReader readerEntry = new BarcodeReaderEntryTestDriver();
-		BarcodeReader readerExit = new BarcodeReaderExitTestDriver();
 		readerEntry.register(manager);
+
+		BarcodeReader readerExit = new BarcodeReaderExitTestDriver();
 		readerExit.register(manager);
+
+		OperatorGUI gui = new OperatorGUI();
+		gui.register(manager);
+
+		manager.registerHardwareDrivers(printer, entryLock, exitLock, terminal);
 	}
 
 	/**
