@@ -10,25 +10,16 @@ public class BicycleGarageManager {
 	private ElectronicLock exitLock;
 	private PinCodeTerminal terminal;
 	private HashMap<String, Bike> bikes;
-<<<<<<< HEAD
-	private HashMap<Integer, User> users;
 	private HashMap<String, User> users;
 	private ArrayList<Character> pincode;
 	private StringBuilder sb;
 	
-	public BicycleGarageManager(HashMap<Integer, User> users,HashMap<String, Bike> bikes){
 	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
 		this.users=users;
 		this.bikes=bikes;
 		pincode=new ArrayList<Character>();
 		sb=new StringBuilder();
-=======
-	private HashMap<String, User> users;
-	
-	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
-		this.users = users;
-		this.bikes = bikes;
->>>>>>> origin/master
+		users.put("12345", new User("12345","Anton","920212"));
 	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,
@@ -58,10 +49,14 @@ public class BicycleGarageManager {
 				sb.append(pinc);
 			}
 			if(users.containsKey(sb.toString())){
-				entryLock.open(15);
-				terminal.lightLED(1, 15);
+				sb.setLength(0);
+				pincode.clear();
+				entryLock.open(10);
+				terminal.lightLED(1, 10);
 			}else{
-				terminal.lightLED(0, 5);
+				sb.setLength(0);
+				pincode.clear();
+				terminal.lightLED(0, 3);
 			}
 			sb.setLength(0);
 			pincode.clear();
