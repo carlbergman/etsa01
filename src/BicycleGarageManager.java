@@ -11,15 +11,14 @@ public class BicycleGarageManager {
 	private PinCodeTerminal terminal;
 	private HashMap<String, Bike> bikes;
 	private HashMap<String, User> users;
-	private ArrayList<Character> pincode;
-	private StringBuilder sb;
+	private ArrayList<Character> pinArray;
+	private StringBuilder pinSB;
 	
 	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
 		this.users=users;
 		this.bikes=bikes;
-		pincode=new ArrayList<Character>();
-		sb=new StringBuilder();
-		users.put("12345", new User("12345","Anton","920212"));
+		pinArray=new ArrayList<Character>();
+		pinSB=new StringBuilder();
 	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,
@@ -41,37 +40,55 @@ public class BicycleGarageManager {
 	}
 
 	public void entryCharacter(char c) {
-		pincode.add(c);
+		pinArray.add(c);
 		Timer timer = new Timer();
 		timer.schedule(new RemindTask(), 3000);
-		if(pincode.size()>=5){
-			for(char pinc:pincode){
-				sb.append(pinc);
+		if(pinArray.size()>=5){
+			for(char pinc:pinArray){
+				pinSB.append(pinc);
 			}
-			if(users.containsKey(sb.toString())){
-				sb.setLength(0);
-				pincode.clear();
+			if(users.containsKey(pinSB.toString())){
+				pinSB.setLength(0);
+				pinArray.clear();
 				entryLock.open(10);
 				terminal.lightLED(1, 10);
 			}else{
-				sb.setLength(0);
-				pincode.clear();
+				pinSB.setLength(0);
+				pinArray.clear();
 				terminal.lightLED(0, 3);
 			}
-			sb.setLength(0);
-			pincode.clear();
+			pinSB.setLength(0);
+			pinArray.clear();
 		}
 	}
 
-	public void newUser(String name) {
-		// TODO Auto-generated method stub
+	public String newUser(String name, String pn) {
+		String pincodeString;
+		do{
+			int pincode = (int)Math.floor((Math.random()*100000));
+			pincodeString=String.format("%04d",pincode);
+		}while(users.containsKey(pincodeString));
 		
+		User user = new User(pincodeString,name,pn);
+		users.put(pincodeString, user);
+		return pincodeString;
+	}
+	
+	public void newBike(User user){
+		String barcodeString;
+		do{
+			int barcode = (int)Math.floor((Math.random()*100000));
+			barcodeString=String.format("%04d",barcode);
+		}while(bikes.containsKey(barcodeString));
+		
+		Bike bike = new Bike(barcodeString,user);
+		bikes.put(barcodeString, bike);
 	}
 	
 	class RemindTask extends TimerTask{
 		@Override
 		public void run() {
-			pincode.clear();
+			pinArray.clear();
 		}
 	}
 }
