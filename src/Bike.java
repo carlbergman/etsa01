@@ -7,6 +7,7 @@ public class Bike {
 
 	private String barcode;		// Bike identifier
 	private User user;			// Bike owner
+	private boolean status;		// Whether bike is registered as in garage
 
 	/**
 	 * Bike constructor
@@ -16,6 +17,7 @@ public class Bike {
 	public Bike (String id, User user) {
 		this.barcode = id;
 		this.user = user;
+		status = false;
 	}
 	
 	/**
@@ -32,6 +34,14 @@ public class Bike {
 	 */
 	public String getId () {
 		return barcode;
+	}
+	
+	/**
+	 * Get status (whether the system should be regarded as placed in the garage by the system.)
+	 * @return true if the bike is in the garage, otherwise false
+	 */
+	public boolean getStatus () {
+		return status;
 	}
 
 }
