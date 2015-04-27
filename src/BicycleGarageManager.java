@@ -1,4 +1,7 @@
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BicycleGarageManager {
 
@@ -8,10 +11,15 @@ public class BicycleGarageManager {
 	private PinCodeTerminal terminal;
 	private HashMap<String, Bike> bikes;
 	private HashMap<String, User> users;
+	private ArrayList<Character> pincode;
+	private StringBuilder sb;
 	
 	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
-		this.users = users;
-		this.bikes = bikes;
+		this.users=users;
+		this.bikes=bikes;
+		pincode=new ArrayList<Character>();
+		sb=new StringBuilder();
+		users.put("12345", new User("12345","Anton","920212"));
 	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,
@@ -33,8 +41,26 @@ public class BicycleGarageManager {
 	}
 
 	public void entryCharacter(char c) {
-		// TODO Auto-generated method stub
-
+		pincode.add(c);
+		Timer timer = new Timer();
+		timer.schedule(new RemindTask(), 3000);
+		if(pincode.size()>=5){
+			for(char pinc:pincode){
+				sb.append(pinc);
+			}
+			if(users.containsKey(sb.toString())){
+				sb.setLength(0);
+				pincode.clear();
+				entryLock.open(10);
+				terminal.lightLED(1, 10);
+			}else{
+				sb.setLength(0);
+				pincode.clear();
+				terminal.lightLED(0, 3);
+			}
+			sb.setLength(0);
+			pincode.clear();
+		}
 	}
 
 	public void newUser(String name) {
@@ -42,5 +68,10 @@ public class BicycleGarageManager {
 		
 	}
 	
-	
+	class RemindTask extends TimerTask{
+		@Override
+		public void run() {
+			pincode.clear();
+		}
+	}
 }
