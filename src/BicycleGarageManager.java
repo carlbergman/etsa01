@@ -134,6 +134,13 @@ public class BicycleGarageManager {
 		}
 	}
 	
+//	public ArrayList<Bike> getUserBikes(User user){
+//		ArrayList<Bike> bikelist = new ArrayList<Bike>();
+//		for(Map.Entry<String, Bike> e:bikes.entrySet()){
+//			if(user.equals())
+//		}
+//	}
+	
 	class RemindTask extends TimerTask{
 		@Override
 		public void run() {
