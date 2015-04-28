@@ -43,5 +43,9 @@ public class Bike {
 	public boolean getStatus () {
 		return status;
 	}
+	
+	public String toString(){
+		return barcode+", Användare: "+user.getName()+". I garaget: "+status;
+	}
 
 }
