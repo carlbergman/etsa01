@@ -14,12 +14,15 @@ public class BicycleGarageManager {
 	private HashMap<String, User> users;
 	private ArrayList<Character> pinArray;
 	private StringBuilder pinSB;
+	private Timer timer;
+	private RemindTask remind = new RemindTask();
 	
 	public BicycleGarageManager(HashMap<String, User> users,HashMap<String, Bike> bikes){
 		this.users=users;
 		this.bikes=bikes;
 		pinArray=new ArrayList<Character>();
 		pinSB=new StringBuilder();
+		timer=new Timer();
 	}
 
 	public void registerHardwareDrivers(BarcodePrinter printer,
@@ -42,8 +45,8 @@ public class BicycleGarageManager {
 
 	public void entryCharacter(char c) {
 		pinArray.add(c);
-		Timer timer = new Timer();
-		timer.schedule(new RemindTask(), 3000);
+		remind.cancel();
+		timer.schedule(remind=new RemindTask(), 3000);
 		if(pinArray.size()>=5){
 			for(char pinc:pinArray){
 				pinSB.append(pinc);
@@ -63,25 +66,34 @@ public class BicycleGarageManager {
 		}
 	}
 
-	public String newUser(String name, String pn) {
+	public String newUser(String name, String ssn) {
 		String pincodeString;
 		do{
 			int pincode = (int)Math.floor((Math.random()*100000));
 			pincodeString=String.format("%04d",pincode);
 		}while(users.containsKey(pincodeString));
 		
-		User user = new User(pincodeString,name,pn);
+		User user = new User(pincodeString,name,ssn);
+		//Check if user already exists by searching for ssn
+		for(Map.Entry<String, User> e:users.entrySet()){
+			User u = e.getValue();
+			if(u.equals(user)){
+				return "The user already exists";
+			}
+		}
 		users.put(pincodeString, user);
 		return pincodeString;
 	}
 	
-	public boolean removeUser(String pin){
-		if(users.containsKey(pin)){
-			users.remove(pin);
-			return true;
-		}else{
-			return false;
+	public boolean removeUser(String ssn){
+		for(Map.Entry<String, User> e:users.entrySet()){
+			User u = e.getValue();
+			if(u.getPn().equals(ssn)){
+				users.remove(u.getPin());
+				return true;
+			}	
 		}
+		return false;
 	}
 	
 	public void newBike(User user){
@@ -110,21 +122,22 @@ public class BicycleGarageManager {
 	
 	public ArrayList<User> searchUser(String s){
 		ArrayList<User> userlist = new ArrayList<User>();
-		if(s.matches("[0-9]+")&&s.length()==5){
+		if(s.matches("^[0-9]{5}$")){
 			userlist.add(users.get(s));
 			return userlist;
-		}else if(!s.matches("[0-9]+")){
-			User user = new User("",s,"");
+		}else if(s.matches("^[\\pL\\s]+$")){
 			for(Map.Entry<String, User> e:users.entrySet()){
-				if(e.getValue().equals(user)){
+				User user = e.getValue();
+				//Ändra eventuellt så att man inte behöver efternamn etc.
+				if(user.getName().equals(s)){
 					userlist.add(user);
 				}
 			}
 			return userlist;
-		}else if(s.matches("[0-9]{6,10}")){
-			User user = new User("","",s);
+		}else if(s.matches("^([0-9]{6}[-+]{1}[0-9]{4})$")){
 			for(Map.Entry<String, User> e:users.entrySet()){
-				if(e.getValue().equals(user)){
+				User user = e.getValue();
+				if(user.getPn().equals(s)){
 					userlist.add(user);
 				}
 			}
@@ -134,17 +147,21 @@ public class BicycleGarageManager {
 		}
 	}
 	
-//	public ArrayList<Bike> getUserBikes(User user){
-//		ArrayList<Bike> bikelist = new ArrayList<Bike>();
-//		for(Map.Entry<String, Bike> e:bikes.entrySet()){
-//			if(user.equals())
-//		}
-//	}
+	public ArrayList<Bike> getUserBikes(User user){
+		ArrayList<Bike> bikelist = new ArrayList<Bike>();
+		for(Map.Entry<String, Bike> e:bikes.entrySet()){
+			if(e.getValue().getUser().equals(user)){
+				bikelist.add(e.getValue());
+			}
+		}
+		return bikelist;
+	}
 	
 	class RemindTask extends TimerTask{
 		@Override
 		public void run() {
 			pinArray.clear();
+			System.out.println("Remindtask executed");
 		}
 	}
 }

@@ -47,11 +47,15 @@ public class User {
 	
 	public boolean equals(Object obj){
 		if(obj instanceof User){
-			if(((User) obj).getName().equals(name) || ((User) obj).getPn().equals(pn)){
+			if( ( (User) obj).getPn().equals(pn)){
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public String toString(){
+		return name+" ("+pn+"), Pinkod: "+pin;
 	}
 
 }
