@@ -44,5 +44,14 @@ public class User {
 	public String getPn () {
 		return pn;
 	}
+	
+	public boolean equals(Object obj){
+		if(obj instanceof User){
+			if(((User) obj).getName().equals(name) || ((User) obj).getPn().equals(pn)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

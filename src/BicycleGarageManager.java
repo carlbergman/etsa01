@@ -74,6 +74,15 @@ public class BicycleGarageManager {
 		return pincodeString;
 	}
 	
+	public boolean removeUser(String pin){
+		if(users.containsKey(pin)){
+			users.remove(pin);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public void newBike(User user){
 		String barcodeString;
 		do{
@@ -84,6 +93,28 @@ public class BicycleGarageManager {
 		Bike bike = new Bike(barcodeString,user);
 		bikes.put(barcodeString, bike);
 	}
+	
+	public boolean removeBike(String bikeID){
+		if(bikes.containsKey(bikeID)){
+			bikes.remove(bikeID);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void printBarcode(String bikeID){
+		printer.printBarcode(bikeID);
+	}
+	
+//	public User searchUser(String s){
+//		if(s.matches("[0-9]+")&&s.length()==5){
+//			return users.get(s);
+//		}else if(!s.matches("[0-9]+")){
+//			User user = new User("00000",s,"000000");
+//			return users.
+//		}
+//	}
 	
 	class RemindTask extends TimerTask{
 		@Override

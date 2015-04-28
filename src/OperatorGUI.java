@@ -103,7 +103,7 @@ public class OperatorGUI implements ActionListener {
 		//informManager(n);
 	}
 
-	void informManager(String n) {
-		//manager.newUser(n, user);
+	void informManager(String name, String pn) {
+		//manager.newUser(name, pn);
 	}
 }
