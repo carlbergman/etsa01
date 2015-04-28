@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -128,60 +129,80 @@ public class OperatorGUI {
 
 	protected void searchForBikeButtonPressed() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void showAllBikesButtonPressed() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void removeBikeButtonPressed() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void addBikeButtonPressed() {
-		// TODO Auto-generated method stub
+		String ssn = getSsn();
+		ArrayList<User> users = manager.searchUser(ssn);
 		
+		if (users.isEmpty()) {
+			System.out.println(JOptionPane.showConfirmDialog(frame, "No user with that social security number exists. Do you want to add a new user?"));
+			// 0 = Yes
+			// 1 = No
+			// 2 = Cancel
+			// -1 = Kryss
+		} else if (users.size() == 1) {
+			User u = users.get(0);
+		} else {
+			// An error occured Ð we got more than one result from the search.
+			JOptionPane.showMessageDialog(new JFrame("An error occured"), "An error occured. We are sorry for the inconvenience");
+		}
+
+		// Add the bike and show the result to the operator
+		// JOptionPane.showMessageDialog(frame, manager.newBike(name, ssn));
+
 	}
 
 	protected void searchForUserButtonPressed() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void showAllUsersButtonPressed() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void removeUserButtonPressed() {
-		// TODO Auto-generated method stub
-		
+		String ssn = getSsn();
+		JOptionPane.showMessageDialog(new JFrame("Remove user"), manager.removeUser(ssn));
 	}
 
 	protected void addUserButtonPressed() {
+		String name = getName();
+		String ssn = getSsn();
+		JOptionPane.showMessageDialog(new JFrame("Add user"), manager.newUser(name, ssn));
+	}
+
+	protected String getName() {
 		String name;
+
+		do {
+			name = JOptionPane.showInputDialog(new JFrame("Get name"), "Name:");
+		} while (!name.matches("^[\\pL\\s]+$"));
+
+		return name;
+	}
+
+	protected String getSsn() {
 		String ssn;
 		
-		JFrame frame = new JFrame("Add user");
-		
 		do {
-			name = JOptionPane.showInputDialog(frame, "Name:");
-			if (name == null) {
-				return;
-			}
-		} while (!name.matches("^[\\pL\\s]+$"));
-		
-		do {
-			ssn = JOptionPane.showInputDialog(frame, "Social security number (preferred format YYMMDD-NNNN):");
-			if (ssn == null) {
-				return;
-			}
+			ssn = JOptionPane.showInputDialog(new JFrame("Get social security number"),
+					"Social security number (YYMMDD-NNNN):");
 		} while (!ssn.matches("^([0-9]{6}[-+]{1}[0-9]{4})$"));
-		
-		JOptionPane.showMessageDialog(frame, manager.newUser(name, ssn));
 
+		return ssn;
 	}
 }
