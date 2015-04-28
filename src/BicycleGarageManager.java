@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -107,14 +108,31 @@ public class BicycleGarageManager {
 		printer.printBarcode(bikeID);
 	}
 	
-//	public User searchUser(String s){
-//		if(s.matches("[0-9]+")&&s.length()==5){
-//			return users.get(s);
-//		}else if(!s.matches("[0-9]+")){
-//			User user = new User("00000",s,"000000");
-//			return users.
-//		}
-//	}
+	public ArrayList<User> searchUser(String s){
+		ArrayList<User> userlist = new ArrayList<User>();
+		if(s.matches("[0-9]+")&&s.length()==5){
+			userlist.add(users.get(s));
+			return userlist;
+		}else if(!s.matches("[0-9]+")){
+			User user = new User("",s,"");
+			for(Map.Entry<String, User> e:users.entrySet()){
+				if(e.getValue().equals(user)){
+					userlist.add(user);
+				}
+			}
+			return userlist;
+		}else if(s.matches("[0-9]{6,10}")){
+			User user = new User("","",s);
+			for(Map.Entry<String, User> e:users.entrySet()){
+				if(e.getValue().equals(user)){
+					userlist.add(user);
+				}
+			}
+			return userlist;
+		}else{
+			return null;
+		}
+	}
 	
 	class RemindTask extends TimerTask{
 		@Override
