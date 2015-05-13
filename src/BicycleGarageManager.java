@@ -36,11 +36,16 @@ public class BicycleGarageManager {
 
 	public void entryBarcode(String code) {
 		if(bikes.containsKey(code)){
+			bikes.get(code).bikeIn();
 			entryLock.open(15);
 			terminal.lightLED(1, 15);
 		}else{
 			terminal.lightLED(0,5);
 		}
+	}
+	
+	public void exitBarcode(String code){
+		
 	}
 
 	public void entryCharacter(char c) {
@@ -157,9 +162,17 @@ public class BicycleGarageManager {
 		return bikelist;
 	}
 	
-	//getAllBikes
+	public ArrayList<Bike> getAllBikes(){
+		ArrayList<Bike> bikeList= new ArrayList<Bike>();
+		for(Map.Entry<String, Bike> e:bikes.entrySet()){
+			bikeList.add(e.getValue());
+		}
+		return null;
+	}
 	
-	//getAllUsers
+	public ArrayList<User> getAllUsers(){
+		return null;
+	}
 	
 	class RemindTask extends TimerTask{
 		@Override

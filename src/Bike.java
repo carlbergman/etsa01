@@ -44,6 +44,14 @@ public class Bike {
 		return status;
 	}
 	
+	public void bikeIn(){
+		status=true;
+	}
+	
+	public void bikeOut(){
+		status=false;
+	}
+	
 	public String toString(){
 		return barcode+", Användare: "+user.getName()+". I garaget: "+status;
 	}
