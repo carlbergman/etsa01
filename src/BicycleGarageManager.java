@@ -82,7 +82,7 @@ public class BicycleGarageManager {
 			}
 		}
 		users.put(pincodeString, user);
-		return pincodeString;
+		return "The user was added with pincode: "+pincodeString;
 	}
 	
 	public boolean removeUser(String ssn){
@@ -156,6 +156,10 @@ public class BicycleGarageManager {
 		}
 		return bikelist;
 	}
+	
+	//getAllBikes
+	
+	//getAllUsers
 	
 	class RemindTask extends TimerTask{
 		@Override
