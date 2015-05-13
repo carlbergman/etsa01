@@ -45,7 +45,10 @@ public class BicycleGarageManager {
 	}
 	
 	public void exitBarcode(String code){
-		
+		if(bikes.containsKey(code)){
+			bikes.get(code).bikeOut();
+			exitLock.open(15);
+		}
 	}
 
 	public void entryCharacter(char c) {
@@ -167,11 +170,15 @@ public class BicycleGarageManager {
 		for(Map.Entry<String, Bike> e:bikes.entrySet()){
 			bikeList.add(e.getValue());
 		}
-		return null;
+		return bikeList;
 	}
 	
 	public ArrayList<User> getAllUsers(){
-		return null;
+		ArrayList<User> userList= new ArrayList<User>();
+		for(Map.Entry<String, User> e:users.entrySet()){
+			userList.add(e.getValue());
+		}
+		return userList;
 	}
 	
 	class RemindTask extends TimerTask{
