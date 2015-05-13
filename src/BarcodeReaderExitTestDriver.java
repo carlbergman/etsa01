@@ -20,7 +20,7 @@ public class BarcodeReaderExitTestDriver extends BarcodeReaderTestDriver {
 	 * @see abstract class BarcodeReaderTestDriver
 	 */
 	void informManager(String code) {
-		manager.entryBarcode(code);
+		manager.exitBarcode(code);
 	}
 
 }
