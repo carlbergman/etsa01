@@ -1,9 +1,11 @@
 ###
 # Project specific
 ###
-
 UML.png
 UML.ucls
+bikes.txt
+log.txt
+users.txt
 
 ###
 # Other things
