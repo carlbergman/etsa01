@@ -207,6 +207,7 @@ public class BicycleGarageManager {
 
 		Bike bike = new Bike(barcodeString, user);
 		bikes.put(barcodeString, bike);
+		printer.printBarcode(barcodeString);
 		return bike;
 	}
 
@@ -224,16 +225,6 @@ public class BicycleGarageManager {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * Prints a bikes barcode
-	 * 
-	 * @param bikeID
-	 *            the barcode
-	 */
-	public void printBarcode(String bikeID) {
-		printer.printBarcode(bikeID);
 	}
 
 	/**
