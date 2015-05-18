@@ -44,16 +44,38 @@ public class Bike {
 		return status;
 	}
 	
+	/**
+	 * Check in the bike.
+	 */
 	public void bikeIn(){
 		status=true;
 	}
 	
+	/**
+	 * Check out the bike.
+	 */
 	public void bikeOut(){
 		status=false;
 	}
 	
+	/**
+	 * Get a string representation of the class.
+	 * 
+	 * @return a string.
+	 */
 	public String toString(){
-		return barcode+", Användare: "+user.getName()+". I garaget: "+status;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Bar code: " + barcode);
+		sb.append(" ");
+		sb.append("Owner: " + user.getName() + " (" + user.getSsn() + ")");
+		sb.append(" ");
+		sb.append("Parked: ");
+		if (status) {
+			sb.append("Yes");
+		} else {
+			sb.append("No");
+		}
+		return sb.toString();
 	}
 
 }

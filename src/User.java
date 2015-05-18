@@ -1,61 +1,87 @@
 /**
- * Class handling users. 
+ * Class handling users.
+ * 
  * @author carlbergman
- *
+ * 
  */
 public class User {
 
-	private String pin;		// Person pin code
-	private String name;	// Person name
-	private String pn;		// Personal id number
-	
+	private String pin; // Person pin code
+	private String name; // Person name
+	private String ssn; // Personal id number
+
 	/**
 	 * User constructor
-	 * @param pin User pin code
-	 * @param name User name
-	 * @param pn User personal id number
+	 * 
+	 * @param pin
+	 *            User pin code
+	 * @param name
+	 *            User name
+	 * @param ssn
+	 *            Social security number
 	 */
-	public User (String pin, String name, String pn) {
+	public User(String pin, String name, String ssn) {
 		this.pin = pin;
 		this.name = name;
-		this.pn = pn;
+		this.ssn = ssn;
 	}
-	
+
 	/**
 	 * Get pin code
+	 * 
 	 * @return int the pin code
 	 */
-	public String getPin () {
+	public String getPin() {
 		return pin;
 	}
-	
+
 	/**
 	 * Get name
+	 * 
 	 * @return String the name
 	 */
-	public String getName () {
+	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Get personal id number
+	 * 
 	 * @return String the personal id
 	 */
-	public String getPn () {
-		return pn;
+	public String getSsn() {
+		return ssn;
 	}
-	
-	public boolean equals(Object obj){
-		if(obj instanceof User){
-			if( ( (User) obj).getPn().equals(pn)){
+
+	/**
+	 * Is this User equal to another object.
+	 * 
+	 * @param obj The object to compare to
+	 * 
+	 * @return boolean true if equal, otherwise false.
+	 */
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			if (((User) obj).getSsn().equals(ssn)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public String toString(){
-		return name+" ("+pn+"), Pinkod: "+pin;
+
+	/**
+	 * String representation of the class.
+	 * 
+	 * @return a string.
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name: " + name);
+		sb.append("   ");
+		sb.append("Social security number: " + ssn);
+		sb.append("   ");
+		sb.append("Pin: " + pin);
+		return sb.toString();
 	}
 
 }
