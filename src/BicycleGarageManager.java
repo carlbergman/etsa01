@@ -18,7 +18,7 @@ public class BicycleGarageManager {
 	private HashMap<String, Bike> bikes;
 	private HashMap<String, User> users;
 	private ArrayList<Character> pinArray;
-	private StringBuilder pinSB;
+	private String pin;
 	private Timer timer;
 	private RemindTask remind = new RemindTask();
 	private ArrayList<InOutLog> log;
@@ -29,7 +29,6 @@ public class BicycleGarageManager {
 		log = loadListFromFile("log.txt");
 		
 		pinArray = new ArrayList<Character>();
-		pinSB = new StringBuilder();
 		timer = new Timer();
 	}
 
@@ -91,24 +90,55 @@ public class BicycleGarageManager {
 	 *            the entry character
 	 */
 	public void entryCharacter(char c) {
+		
+		// Add the entered char to the ones entered within the valid time frame.
 		pinArray.add(c);
+		
+		// Reset the timeout timer.
 		remind.cancel();
 		timer.schedule(remind = new RemindTask(), 3000);
+		
+		// Check if it's time to validate the pin.
 		if (pinArray.size() >= 5) {
-			for (char pinc : pinArray) {
-				pinSB.append(pinc);
+
+			// Get the pin as a string.			
+			StringBuilder sb = new StringBuilder();
+			for(char s : pinArray) {
+			    sb.append(s);
 			}
-			if (users.containsKey(pinSB.toString())) {
-				pinSB.setLength(0);
+			pin = sb.toString();
+			
+			// Find the pin among users
+			if (users.containsKey(pin)) {
+				
+				// Reset the pin
+				pin = "";
+				
+				// Reset the list of entered chars
 				pinArray.clear();
+				
+				// Open the lock
 				entryLock.open(10);
+				
+				// Light the green LED for 10 seconds.
 				terminal.lightLED(1, 10);
+
 			} else {
-				pinSB.setLength(0);
+				
+				// Reset the pin
+				pin = "";
+				
+				// Reset the list of entered chars
 				pinArray.clear();
+				
+				// Light the red LED for 3 seconds.
 				terminal.lightLED(0, 3);
 			}
-			pinSB.setLength(0);
+			
+			// Reset the pin
+			pin = "";
+			
+			// Reset the list of entered chars
 			pinArray.clear();
 		}
 	}
@@ -396,7 +426,6 @@ public class BicycleGarageManager {
 			out.writeObject(o);
 			out.close();
 		} catch (Exception e) {
-			// e.printStackTrace();
 			return false;
 		}
 		return true;
@@ -415,7 +444,6 @@ public class BicycleGarageManager {
 		@Override
 		public void run() {
 			pinArray.clear();
-			System.out.println("Remindtask executed");
 		}
 	}
 }
