@@ -1,3 +1,14 @@
+###
+# Project specific
+###
+
+UML.png
+UML.ucls
+
+###
+# Other things
+###
+
 *.pydevproject
 .metadata
 .gradle
