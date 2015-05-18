@@ -1,6 +1,10 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,15 +23,14 @@ public class BicycleGarageManager {
 	private RemindTask remind = new RemindTask();
 	private ArrayList<InOutLog> log;
 
-	public BicycleGarageManager(HashMap<String, User> users,
-			HashMap<String, Bike> bikes, ArrayList<InOutLog> log) {
-		this.users = users;
-		this.bikes = bikes;
+	public BicycleGarageManager() {
+		bikes = (HashMap<String, Bike>) loadHashMapFromFile("bikes.txt");
+		users = (HashMap<String, User>) loadHashMapFromFile("users.txt");
+		log = loadListFromFile("log.txt");
+		
 		pinArray = new ArrayList<Character>();
 		pinSB = new StringBuilder();
 		timer = new Timer();
-		this.log = log;
-
 	}
 
 	/**
@@ -289,6 +292,114 @@ public class BicycleGarageManager {
 			userList.add(e.getValue());
 		}
 		return userList;
+	}
+	
+	/**
+	 * Return all logged items
+	 * 
+	 * @return the log
+	 */
+	public ArrayList<InOutLog> getLog() {
+		return log;
+	}
+	
+	public void quit() {
+		writeHashMapToFile(bikes, "bikes.txt");
+		writeHashMapToFile(users, "users.txt");
+		writeListToFile(log, "log.txt");
+		
+		System.exit(0);
+	}
+	
+	/**
+	 * Get HashMap from file
+	 * 
+	 * @param filename
+	 *            The file
+	 * @return The HashMap from the file or a new HashMap.
+	 */
+	public HashMap<?, ?> loadHashMapFromFile(String filename) {
+
+		HashMap<?, ?> temp;
+
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
+					filename));
+			temp = (HashMap<?, ?>) in.readObject();
+			in.close();
+		} catch (Exception e) {
+			return temp = new HashMap();
+		}
+
+		return temp;
+	}
+	
+	/**
+	 * Write a HashMap to file
+	 * 
+	 * @param o
+	 *            The HashMap
+	 * @param filename
+	 *            The file
+	 * @return true if HashMap was written, otherwise false.
+	 */
+	public boolean writeHashMapToFile(HashMap<?, ?> o, String filename) {
+
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+			out.writeObject(o);
+			out.close();
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get list from file
+	 * 
+	 * @param filename
+	 *            The file
+	 * @return The list from the file or a new list.
+	 */
+	public ArrayList<InOutLog> loadListFromFile(String filename) {
+
+		ArrayList<InOutLog> temp;
+
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
+					filename));
+			temp = (ArrayList<InOutLog>) in.readObject();
+			in.close();
+		} catch (Exception e) {
+			return temp = new ArrayList<InOutLog>();
+		}
+
+		return temp;
+	}
+
+	/**
+	 * Write a list to file
+	 * 
+	 * @param o
+	 *            The list
+	 * @param filename
+	 *            The file
+	 * @return true if list was written, otherwise false.
+	 */
+	public boolean writeListToFile(ArrayList<InOutLog> o, String filename) {
+
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream(filename));
+			out.writeObject(o);
+			out.close();
+		} catch (Exception e) {
+			// e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	/**

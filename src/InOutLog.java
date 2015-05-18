@@ -26,6 +26,12 @@ public class InOutLog {
 	}
 	
 	public String toString(){
-		return "Barcode: "+barCode+", Type: "+type+", Date: "+date.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Date: " + date.toString());
+		sb.append("\t");
+		sb.append("Type: " + type);
+		sb.append("\t");
+		sb.append("Barcode: " + barCode);
+		return sb.toString();
 	}
 }

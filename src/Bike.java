@@ -1,10 +1,20 @@
+import java.io.Serializable;
+
 /**
  * Class handling bikes.
  * @author carlbergman
  *
  */
-public class Bike {
+public class Bike implements Serializable {
 
+	/**
+	 * For serializing and de-serializing. Do not change.
+	 */
+	private static final long serialVersionUID = -3497924117832596736L;
+	
+	/**
+	 * Attributes
+	 */
 	private String barcode;		// Bike identifier
 	private User user;			// Bike owner
 	private boolean status;		// Whether bike is registered as in garage
@@ -66,9 +76,9 @@ public class Bike {
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("Bar code: " + barcode);
-		sb.append(" ");
+		sb.append("   ");
 		sb.append("Owner: " + user.getName() + " (" + user.getSsn() + ")");
-		sb.append(" ");
+		sb.append("   ");
 		sb.append("Parked: ");
 		if (status) {
 			sb.append("Yes");

@@ -19,8 +19,11 @@ public class OperatorGUI {
 
 	private JFrame frame;
 	private JMenuBar menuBar;
-	private JMenu userMenu;
-	private JMenu bicycleMenu;
+	private JMenu addMenu;
+	private JMenu removeMenu;
+	private JMenu findMenu;
+	private JMenu showMenu;
+	private JMenu quitMenu;
 	private JMenuItem addUser;
 	private JMenuItem removeUser;
 	private JMenuItem showAllUsers;
@@ -29,6 +32,8 @@ public class OperatorGUI {
 	private JMenuItem removeBike;
 	private JMenuItem showAllBikes;
 	private JMenuItem searchForBike;
+	private JMenuItem showLog;
+	private JMenuItem quit;
 	private JTextArea textArea;
 	protected BicycleGarageManager manager;
 
@@ -65,10 +70,16 @@ public class OperatorGUI {
 		frame.setJMenuBar(menuBar);
 		
 		// Add menus to the menu bar
-		userMenu = new JMenu("User");
-		bicycleMenu = new JMenu("Bicycle");
-		menuBar.add(userMenu);
-		menuBar.add(bicycleMenu);
+		addMenu = new JMenu("Add");
+		removeMenu = new JMenu("Remove");
+		findMenu = new JMenu("Find");
+		showMenu = new JMenu("Show");
+		quitMenu = new JMenu("Quit");
+		menuBar.add(addMenu);
+		menuBar.add(removeMenu);
+		menuBar.add(findMenu);
+		menuBar.add(showMenu);
+		menuBar.add(quitMenu);
 		
 		// Add menu items to each menu
 		addUser = new JMenuItem("Add user");
@@ -77,7 +88,7 @@ public class OperatorGUI {
 				addUserButtonPressed();
 			}
 		});
-		userMenu.add(addUser);
+		addMenu.add(addUser);
 		
 		removeUser = new JMenuItem("Remove user");
 		removeUser.addActionListener(new ActionListener() {
@@ -85,7 +96,7 @@ public class OperatorGUI {
 				removeUserButtonPressed();
 			}
 		});
-		userMenu.add(removeUser);
+		removeMenu.add(removeUser);
 
 		showAllUsers = new JMenuItem("Show all users");
 		showAllUsers.addActionListener(new ActionListener() {
@@ -93,7 +104,7 @@ public class OperatorGUI {
 				showAllUsersButtonPressed();
 			}
 		});
-		userMenu.add(showAllUsers);
+		showMenu.add(showAllUsers);
 		
 		searchForUser= new JMenuItem("Search for a user");
 		searchForUser.addActionListener(new ActionListener() {
@@ -101,7 +112,7 @@ public class OperatorGUI {
 				searchForUserButtonPressed();
 			}
 		});
-		userMenu.add(searchForUser);
+		findMenu.add(searchForUser);
 		
 		addBike= new JMenuItem("Add bike");
 		addBike.addActionListener(new ActionListener() {
@@ -109,7 +120,7 @@ public class OperatorGUI {
 				addBikeButtonPressed();
 			}
 		});
-		bicycleMenu.add(addBike);
+		addMenu.add(addBike);
 		
 		removeBike = new JMenuItem("Remove bike");
 		removeBike.addActionListener(new ActionListener() {
@@ -117,7 +128,7 @@ public class OperatorGUI {
 				removeBikeButtonPressed();
 			}
 		});
-		bicycleMenu.add(removeBike);
+		removeMenu.add(removeBike);
 		
 		showAllBikes = new JMenuItem("Show all bikes");
 		showAllBikes.addActionListener(new ActionListener() {
@@ -125,7 +136,7 @@ public class OperatorGUI {
 				showAllBikesButtonPressed();
 			}
 		});
-		bicycleMenu.add(showAllBikes);
+		showMenu.add(showAllBikes);
 		
 		searchForBike = new JMenuItem("Search for a bike");
 		searchForBike.addActionListener(new ActionListener() {
@@ -133,7 +144,23 @@ public class OperatorGUI {
 				searchForBikeButtonPressed();
 			}
 		});
-		bicycleMenu.add(searchForBike);
+		findMenu.add(searchForBike);
+		
+		showLog = new JMenuItem("Show log");
+		showLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showLogButtonPressed();
+			}
+		});
+		showMenu.add(showLog);
+		
+		quit = new JMenuItem("Save and quit");
+		quit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quitButtonPressed();
+			}
+		});
+		quitMenu.add(quit);
 
 		frame.setVisible(true);
 	}
@@ -372,6 +399,27 @@ public class OperatorGUI {
 		} catch (Exception e) {
 			textArea.append(e.getMessage() + "\n");
 		}
+	}
+	
+	/**
+	 * Show the log
+	 */
+	protected void showLogButtonPressed() {
+		textArea.append("\n> Show log É\n");
+		
+		ArrayList<InOutLog> log = manager.getLog();
+		
+		textArea.append("There are " + log.size() + " logged events.\n");
+		
+		for(InOutLog e : log) {
+			textArea.append(e.toString() + "\n");
+		}
+	}
+	
+	protected void quitButtonPressed() {
+		textArea.append("\n> Quit É\n");
+		
+		manager.quit();		
 	}
 
 	/**

@@ -1,11 +1,10 @@
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * The Bicycle Garage
+ * 
  * @author carlbergman
  * 
  */
@@ -15,11 +14,7 @@ public class BicycleGarage {
 	 * Constructor
 	 */
 	public BicycleGarage() {
-		HashMap<String, Bike> bikes = (HashMap<String, Bike>) loadObjectFromFile("bikes.txt");
-		HashMap<String, User> users = (HashMap<String, User>) loadObjectFromFile("users.txt");
-		ArrayList<InOutLog> log = loadListFromFile("log.txt");
-		BicycleGarageManager manager = new BicycleGarageManager(users, bikes,
-				log);
+		BicycleGarageManager manager = new BicycleGarageManager();
 
 		ElectronicLock entryLock = new ElectronicLockTestDriver("Entry lock");
 		ElectronicLock exitLock = new ElectronicLockTestDriver("Exit lock");
@@ -41,103 +36,12 @@ public class BicycleGarage {
 	}
 
 	/**
+	 * Main method
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		new BicycleGarage();
-	}
-
-	/**
-	 * Get object from file
-	 * 
-	 * @param filename
-	 *            The file
-	 * @return The object from the file or a new object.
-	 */
-	public HashMap<?, ?> loadObjectFromFile(String filename) {
-
-		HashMap<?, ?> temp;
-
-		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-					filename));
-			temp = (HashMap<?, ?>) in.readObject();
-			in.close();
-		} catch (Exception e) {
-			return temp = new HashMap();
-		}
-
-		return temp;
-	}
-
-	/**
-	 * Write an object to file
-	 * 
-	 * @param o
-	 *            The object
-	 * @param filename
-	 *            The file
-	 * @return true if object was written, otherwise false.
-	 */
-	public boolean writeObjectToFile(HashMap<?, ?> o, String filename) {
-
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream(filename));
-			out.writeObject(o);
-			out.close();
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Get list from file
-	 * 
-	 * @param filename
-	 *            The file
-	 * @return The list from the file or a new list.
-	 */
-	public ArrayList<InOutLog> loadListFromFile(String filename) {
-
-		ArrayList<InOutLog> temp;
-
-		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-					filename));
-			temp = (ArrayList<InOutLog>) in.readObject();
-			in.close();
-		} catch (Exception e) {
-			return temp = new ArrayList<InOutLog>();
-		}
-
-		return temp;
-	}
-
-	/**
-	 * Write an list to file
-	 * 
-	 * @param o
-	 *            The list
-	 * @param filename
-	 *            The file
-	 * @return true if list was written, otherwise false.
-	 */
-	public boolean writeListToFile(ArrayList<InOutLog> o, String filename) {
-
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream(filename));
-			out.writeObject(o);
-			out.close();
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return false;
-		}
-		return true;
 	}
 
 }

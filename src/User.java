@@ -1,11 +1,21 @@
+import java.io.Serializable;
+
 /**
  * Class handling users.
  * 
  * @author carlbergman
  * 
  */
-public class User {
+public class User implements Serializable{
 
+	/**
+	 * For serializing and de-serializing. Do not change.
+	 */
+	private static final long serialVersionUID = -8462305766075620662L;
+	
+	/**
+	 * Attributes
+	 */
 	private String pin; // Person pin code
 	private String name; // Person name
 	private String ssn; // Personal id number
