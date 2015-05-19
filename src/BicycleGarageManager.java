@@ -157,7 +157,7 @@ public class BicycleGarageManager {
 		String pincodeString;
 		do {
 			int pincode = (int) Math.floor((Math.random() * 100000));
-			pincodeString = String.format("%04d", pincode);
+			pincodeString = String.format("%05d", pincode);
 		} while (users.containsKey(pincodeString));
 
 		User user = new User(pincodeString, name, ssn);
@@ -185,6 +185,11 @@ public class BicycleGarageManager {
 		for (Map.Entry<String, User> e : users.entrySet()) {
 			User u = e.getValue();
 			if (u.getSsn().equals(ssn)) {
+				for(Map.Entry<String, Bike> bike : bikes.entrySet()){
+					if(bike.getValue().getUser().equals(u)){
+						bikes.remove(bike.getKey());
+					}
+				}
 				users.remove(u.getPin());
 				return true;
 			}
@@ -202,7 +207,7 @@ public class BicycleGarageManager {
 		String barcodeString;
 		do {
 			int barcode = (int) Math.floor((Math.random() * 100000));
-			barcodeString = String.format("%04d", barcode);
+			barcodeString = String.format("%05d", barcode);
 		} while (bikes.containsKey(barcodeString));
 
 		Bike bike = new Bike(barcodeString, user);
