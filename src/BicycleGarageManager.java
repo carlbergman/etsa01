@@ -332,7 +332,7 @@ public class BicycleGarageManager {
 	}
 	
 	/**
-	 * Writes the hashmaps and the log array to files
+	 * Save files before quitting.
 	 */
 	public void quit() {
 		writeHashMapToFile(bikes, "bikes.txt");

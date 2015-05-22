@@ -1,7 +1,16 @@
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class InOutLog {
+public class InOutLog implements Serializable {
+	/**
+	 * For serializing and de-serializing. Do not change.
+	 */
+	private static final long serialVersionUID = -1867489459400496034L;
+	
+	/**
+	 * Attributes
+	 */
 	private Date date;
 	private String type;
 	private String barCode;
