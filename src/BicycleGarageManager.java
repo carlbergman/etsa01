@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -186,9 +187,10 @@ public class BicycleGarageManager {
 		for (Map.Entry<String, User> e : users.entrySet()) {
 			User u = e.getValue();
 			if (u.getSsn().equals(ssn)) {
-				for(Map.Entry<String, Bike> bike : bikes.entrySet()){
-					if(bike.getValue().getUser().equals(u)){
-						bikes.remove(bike.getKey());
+				Iterator<Map.Entry<String, Bike>> itr = bikes.entrySet().iterator();
+				while (itr.hasNext()) {
+					if (itr.next().getValue().getUser().equals(u)) {
+						itr.remove();
 					}
 				}
 				users.remove(u.getPin());
