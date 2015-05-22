@@ -331,6 +331,9 @@ public class BicycleGarageManager {
 		return log;
 	}
 	
+	/**
+	 * Save files before quitting.
+	 */
 	public void quit() {
 		writeHashMapToFile(bikes, "bikes.txt");
 		writeHashMapToFile(users, "users.txt");
