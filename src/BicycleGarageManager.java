@@ -161,6 +161,7 @@ public class BicycleGarageManager {
 		} while (users.containsKey(pincodeString));
 
 		User user = new User(pincodeString, name, ssn);
+		
 		// Check if user already exists by searching for ssn
 		for (Map.Entry<String, User> e : users.entrySet()) {
 			User u = e.getValue();
@@ -248,8 +249,9 @@ public class BicycleGarageManager {
 		} else if (s.matches("^[\\pL\\s]+$")) {
 			for (Map.Entry<String, User> e : users.entrySet()) {
 				User user = e.getValue();
-				// Ändra eventuellt så att man inte behöver efternamn etc.
-				if (user.getName().equals(s)) {
+				
+				//Checks if string s is part of username
+				if (user.getName().toLowerCase().contains(s.toLowerCase())) {
 					userlist.add(user);
 				}
 			}
@@ -440,6 +442,7 @@ public class BicycleGarageManager {
 		@Override
 		public void run() {
 			pinArray.clear();
+			terminal.lightLED(0, 1);
 		}
 	}
 }
