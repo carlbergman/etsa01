@@ -316,6 +316,13 @@ public class OperatorGUI {
 			str = JOptionPane.showInputDialog(new JFrame("Search for user"),
 					"Username, PIN, or social security number (YYMMDD-NNNN):");
 		} catch (NullPointerException e) {
+			textArea.append("Cancelled.\n");
+			return;
+		}
+		
+		// If the input dialog was cancelled.
+		if (str == null) {
+			textArea.append("Cancelled.\n");
 			return;
 		}
 		
