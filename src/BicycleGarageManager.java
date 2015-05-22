@@ -331,6 +331,9 @@ public class BicycleGarageManager {
 		return log;
 	}
 	
+	/**
+	 * Writes the hashmaps and the log array to files
+	 */
 	public void quit() {
 		writeHashMapToFile(bikes, "bikes.txt");
 		writeHashMapToFile(users, "users.txt");
