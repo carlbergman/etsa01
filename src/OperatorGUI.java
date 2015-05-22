@@ -169,7 +169,7 @@ public class OperatorGUI {
 	 * Search for a bike
 	 */
 	protected void searchForBikeButtonPressed() {
-		textArea.append("\n> Search for a bike É\n");
+		textArea.append("\n> Search for a bike ï¿½\n");
 		
 		String bikeId;
 		Bike bike;
@@ -194,7 +194,7 @@ public class OperatorGUI {
 	 * Show all bikes
 	 */
 	protected void showAllBikesButtonPressed() {
-		textArea.append("\n> Show all bikes É\n");
+		textArea.append("\n> Show all bikes ï¿½\n");
 		
 		ArrayList<Bike> bikes = manager.getAllBikes();
 		
@@ -209,7 +209,7 @@ public class OperatorGUI {
 	 * Remove a bike
 	 */
 	protected void removeBikeButtonPressed() {
-		textArea.append("\n> Remove bike É\n");
+		textArea.append("\n> Remove bike ï¿½\n");
 		
 		String bikeId;
 		
@@ -231,7 +231,7 @@ public class OperatorGUI {
 	 * Add a bike
 	 */
 	protected void addBikeButtonPressed() {
-		textArea.append("\n> Add bike É\n");
+		textArea.append("\n> Add bike ï¿½\n");
 		
 		String ssn;
 		String name;
@@ -307,14 +307,14 @@ public class OperatorGUI {
 	 * Search for a user
 	 */
 	protected void searchForUserButtonPressed() {
-		textArea.append("\n> Search for a user É\n");
+		textArea.append("\n> Search for a user ï¿½\n");
 		
 		String str;
 		ArrayList<User> users = new ArrayList<User>();
 		
 		try {
 			str = JOptionPane.showInputDialog(new JFrame("Search for user"),
-					"Username or social security number (YYMMDD-NNNN):");
+					"Username, PIN, or social security number (YYMMDD-NNNN):");
 		} catch (NullPointerException e) {
 			return;
 		}
@@ -337,7 +337,7 @@ public class OperatorGUI {
 	 * Show all users
 	 */
 	protected void showAllUsersButtonPressed() {
-		textArea.append("\n> Show all users É\n");
+		textArea.append("\n> Show all users ï¿½\n");
 		
 		ArrayList<User> users = manager.getAllUsers();
 		
@@ -352,7 +352,7 @@ public class OperatorGUI {
 	 * Remove a user
 	 */
 	protected void removeUserButtonPressed() {
-		textArea.append("\n> Remove user É\n");
+		textArea.append("\n> Remove user ï¿½\n");
 		
 		String ssn;
 		
@@ -375,7 +375,7 @@ public class OperatorGUI {
 	 * Add a user
 	 */
 	protected void addUserButtonPressed() {
-		textArea.append("\n> Add user É\n");
+		textArea.append("\n> Add user ï¿½\n");
 		
 		String name;
 		String ssn;
@@ -405,7 +405,7 @@ public class OperatorGUI {
 	 * Show the log
 	 */
 	protected void showLogButtonPressed() {
-		textArea.append("\n> Show log É\n");
+		textArea.append("\n> Show log ï¿½\n");
 		
 		ArrayList<InOutLog> log = manager.getLog();
 		
@@ -417,7 +417,7 @@ public class OperatorGUI {
 	}
 	
 	protected void quitButtonPressed() {
-		textArea.append("\n> Quit É\n");
+		textArea.append("\n> Quit ï¿½\n");
 		
 		manager.quit();		
 	}
