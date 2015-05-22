@@ -169,7 +169,7 @@ public class OperatorGUI {
 	 * Search for a bike
 	 */
 	protected void searchForBikeButtonPressed() {
-		textArea.append("\n> Search for a bike �\n");
+		textArea.append("\n> Search for a bike ...\n");
 		
 		String bikeId;
 		Bike bike;
@@ -194,7 +194,7 @@ public class OperatorGUI {
 	 * Show all bikes
 	 */
 	protected void showAllBikesButtonPressed() {
-		textArea.append("\n> Show all bikes �\n");
+		textArea.append("\n> Show all bikes ...\n");
 		
 		ArrayList<Bike> bikes = manager.getAllBikes();
 		
@@ -209,7 +209,7 @@ public class OperatorGUI {
 	 * Remove a bike
 	 */
 	protected void removeBikeButtonPressed() {
-		textArea.append("\n> Remove bike �\n");
+		textArea.append("\n> Remove bike ...\n");
 		
 		String bikeId;
 		
@@ -231,7 +231,7 @@ public class OperatorGUI {
 	 * Add a bike
 	 */
 	protected void addBikeButtonPressed() {
-		textArea.append("\n> Add bike �\n");
+		textArea.append("\n> Add bike ...\n");
 		
 		String ssn;
 		String name;
@@ -307,7 +307,7 @@ public class OperatorGUI {
 	 * Search for a user
 	 */
 	protected void searchForUserButtonPressed() {
-		textArea.append("\n> Search for a user �\n");
+		textArea.append("\n> Search for a user ...\n");
 		
 		String str;
 		ArrayList<User> users = new ArrayList<User>();
@@ -344,7 +344,7 @@ public class OperatorGUI {
 	 * Show all users
 	 */
 	protected void showAllUsersButtonPressed() {
-		textArea.append("\n> Show all users �\n");
+		textArea.append("\n> Show all users ...\n");
 		
 		ArrayList<User> users = manager.getAllUsers();
 		
@@ -359,7 +359,7 @@ public class OperatorGUI {
 	 * Remove a user
 	 */
 	protected void removeUserButtonPressed() {
-		textArea.append("\n> Remove user �\n");
+		textArea.append("\n> Remove user ...\n");
 		
 		String ssn;
 		
@@ -382,7 +382,7 @@ public class OperatorGUI {
 	 * Add a user
 	 */
 	protected void addUserButtonPressed() {
-		textArea.append("\n> Add user �\n");
+		textArea.append("\n> Add user ...\n");
 		
 		String name;
 		String ssn;
@@ -412,7 +412,7 @@ public class OperatorGUI {
 	 * Show the log
 	 */
 	protected void showLogButtonPressed() {
-		textArea.append("\n> Show log �\n");
+		textArea.append("\n> Show log ...\n");
 		
 		ArrayList<InOutLog> log = manager.getLog();
 		
@@ -424,7 +424,7 @@ public class OperatorGUI {
 	}
 	
 	protected void quitButtonPressed() {
-		textArea.append("\n> Quit �\n");
+		textArea.append("\n> Quit ...\n");
 		
 		manager.quit();		
 	}
