@@ -26,8 +26,8 @@ public class Bike implements Serializable {
 	 * @param barcode The barcode
 	 * @param user The owner
 	 */
-	public Bike(String id, User user) {
-		this.barcode = id;
+	public Bike(String barcode, User user) {
+		this.barcode = barcode;
 		this.user = user;
 		status = false;
 	}
@@ -46,7 +46,7 @@ public class Bike implements Serializable {
 	 * 
 	 * @return the barcode
 	 */
-	public String getId() {
+	public String getBarcode() {
 		return barcode;
 	}
 
@@ -81,7 +81,7 @@ public class Bike implements Serializable {
 	 */
 	public boolean equals(Object obj) {
 		if (obj instanceof Bike) {
-			if (((Bike) obj).getId().equals(barcode)) {
+			if (((Bike) obj).getBarcode().equals(barcode)) {
 				return true;
 			}
 		}
