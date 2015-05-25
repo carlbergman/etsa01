@@ -291,11 +291,11 @@ public class BicycleGarageManager {
 	
 	/**
 	 * Get a bike
-	 * @param bikeId the barcode of the bike
+	 * @param barcode the barcode of the bike
 	 * @return a Bike object or null
 	 */
-	public Bike getBike(String bikeId) {
-		return bikes.get(bikeId);
+	public Bike getBike(String barcode) {
+		return bikes.get(barcode);
 	}
 
 	/**
