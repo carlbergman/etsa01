@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The Bicycle Garage Manager class
+ * @author carlbergman
+ *
+ */
 public class BicycleGarageManager {
 
 	private BarcodePrinter printer;
@@ -24,6 +29,9 @@ public class BicycleGarageManager {
 	private RemindTask remind = new RemindTask();
 	private ArrayList<InOutLog> log;
 
+	/**
+	 * Constructor
+	 */
 	public BicycleGarageManager() {
 		bikes = (HashMap<String, Bike>) loadHashMapFromFile("bikes.txt");
 		users = (HashMap<String, User>) loadHashMapFromFile("users.txt");
@@ -54,8 +62,7 @@ public class BicycleGarageManager {
 	 * Opens the entry lock and lights the green light if the barcode is in the
 	 * system. Also logs the scanning.
 	 * 
-	 * @param code
-	 *            the barcode
+	 * @param code the barcode
 	 */
 	public void entryBarcode(String code) {
 		if (bikes.containsKey(code)) {
@@ -72,8 +79,7 @@ public class BicycleGarageManager {
 	 * Opens the exit lock if the barcode is in the system. Also logs the
 	 * scanning.
 	 * 
-	 * @param code
-	 *            the barcode
+	 * @param code the barcode
 	 */
 	public void exitBarcode(String code) {
 		if (bikes.containsKey(code)) {
@@ -87,8 +93,7 @@ public class BicycleGarageManager {
 	 * Checks if the right pincode is entered. If so, opens the entry lock and
 	 * lights the green light.
 	 * 
-	 * @param c
-	 *            the entry character
+	 * @param c the entry character
 	 */
 	public void entryCharacter(char c) {
 		
@@ -147,15 +152,15 @@ public class BicycleGarageManager {
 	/**
 	 * Adds a new user to the system
 	 * 
-	 * @param name
-	 * @param ssn
-	 *            the social security number
-	 * @return a message that the user was added and the pincode the user
-	 *         receives.
-	 * @throws Exception
+	 * @param name the name of the new user
+	 * @param ssn the social security number of the new user
+	 * @return the PIN for the created user
+	 * @throws Exception if the user with the provided ssn already exists
 	 */
 	public String newUser(String name, String ssn) throws Exception {
+		
 		String pincodeString;
+		
 		do {
 			int pincode = (int) Math.floor((Math.random() * 100000));
 			pincodeString = String.format("%05d", pincode);
@@ -171,43 +176,55 @@ public class BicycleGarageManager {
 						+ ssn + " already exists.");
 			}
 		}
+		
 		users.put(pincodeString, user);
+		
 		return pincodeString;
 	}
 
 	/**
-	 * Removes a user from the system
+	 * Removes a user from the system. Also removes all connected bikes.
 	 * 
-	 * @param ssn
-	 *            the social security number
-	 * @return true if the user was removed, false otherwise.
-	 * @throws Exception
+	 * @param ssn the social security number
+	 * @return true if the user was removed
+	 * @throws Exception if the user couldn't be found
 	 */
 	public boolean removeUser(String ssn) throws Exception {
+		
+		// Loop through all users.
 		for (Map.Entry<String, User> e : users.entrySet()) {
+			
 			User u = e.getValue();
+			
+			// If the provided ssn matches the current user in the loop
 			if (u.getSsn().equals(ssn)) {
+				
+				// Remove all bikes registered to the user.
 				Iterator<Map.Entry<String, Bike>> itr = bikes.entrySet().iterator();
 				while (itr.hasNext()) {
 					if (itr.next().getValue().getUser().equals(u)) {
 						itr.remove();
 					}
 				}
+				
+				// Remove the user.
 				users.remove(u.getPin());
 				return true;
 			}
 		}
-		throw new Exception("No user with social security number " + ssn
-				+ " found.");
+		
+		throw new Exception("No user with social security number " + ssn + " found.");
 	}
 
 	/**
 	 * Adds a new bike to the system
-	 * 
-	 * @param user
+	 * @param user the owner
+	 * @return the created bike
 	 */
-	public Bike newBike(User user) {
+	public Bike newBike (User user) {
+		
 		String barcodeString;
+		
 		do {
 			int barcode = (int) Math.floor((Math.random() * 100000));
 			barcodeString = String.format("%05d", barcode);
@@ -222,11 +239,10 @@ public class BicycleGarageManager {
 	/**
 	 * Removes a bike from the system
 	 * 
-	 * @param bikeID
-	 *            the bikes barcode
-	 * @return true if the bike was removed, false otherwise
+	 * @param bikeID  the bikes barcode
+	 * @return true if the bike was removed, false otherwise.
 	 */
-	public boolean removeBike(String bikeID) {
+	public boolean removeBike (String bikeID) {
 		if (bikes.containsKey(bikeID)) {
 			bikes.remove(bikeID);
 			return true;
@@ -238,16 +254,18 @@ public class BicycleGarageManager {
 	/**
 	 * Searches the system for users.
 	 * 
-	 * @param s
-	 *            can be pincode, social security number, or name.
-	 * @return a list with the users who fits the search
-	 * @throws Exception 
+	 * @param s can be PIN, ssn, or name.
+	 * @return a list with the users matching the search term
+	 * @throws Exception if there are no hits
 	 */
-	public ArrayList<User> searchUser(String s) throws Exception {
+	public ArrayList<User> searchUser (String s) throws Exception {
 		ArrayList<User> userlist = new ArrayList<User>();
 
+		// Match PIN
 		if (s.matches("^[0-9]{5}$")) {
 			userlist.add(users.get(s));
+			
+		// Match name
 		} else if (s.matches("^[\\pL\\s]+$")) {
 			for (Map.Entry<String, User> e : users.entrySet()) {
 				User user = e.getValue();
@@ -257,6 +275,8 @@ public class BicycleGarageManager {
 					userlist.add(user);
 				}
 			}
+			
+		// Match ssn
 		} else if (s.matches("^([0-9]{6}[-+]{1}[0-9]{4})$")) {
 			for (Map.Entry<String, User> e : users.entrySet()) {
 				User user = e.getValue();
@@ -276,16 +296,18 @@ public class BicycleGarageManager {
 	/**
 	 * Get all the bikes a user has in the system.
 	 * 
-	 * @param user
+	 * @param user the owner
 	 * @return the list of bikes the user has in the system
 	 */
 	public ArrayList<Bike> getUserBikes(User user) {
 		ArrayList<Bike> bikelist = new ArrayList<Bike>();
+		
 		for (Map.Entry<String, Bike> e : bikes.entrySet()) {
 			if (e.getValue().getUser().equals(user)) {
 				bikelist.add(e.getValue());
 			}
 		}
+		
 		return bikelist;
 	}
 	
@@ -305,9 +327,11 @@ public class BicycleGarageManager {
 	 */
 	public ArrayList<Bike> getAllBikes() {
 		ArrayList<Bike> bikeList = new ArrayList<Bike>();
+		
 		for (Map.Entry<String, Bike> e : bikes.entrySet()) {
 			bikeList.add(e.getValue());
 		}
+		
 		return bikeList;
 	}
 
@@ -318,9 +342,11 @@ public class BicycleGarageManager {
 	 */
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> userList = new ArrayList<User>();
+		
 		for (Map.Entry<String, User> e : users.entrySet()) {
 			userList.add(e.getValue());
 		}
+		
 		return userList;
 	}
 	
@@ -347,8 +373,7 @@ public class BicycleGarageManager {
 	/**
 	 * Get HashMap from file
 	 * 
-	 * @param filename
-	 *            The file
+	 * @param filename The file
 	 * @return The HashMap from the file or a new HashMap.
 	 */
 	public HashMap<?, ?> loadHashMapFromFile(String filename) {
@@ -356,8 +381,7 @@ public class BicycleGarageManager {
 		HashMap<?, ?> temp;
 
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-					filename));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
 			temp = (HashMap<?, ?>) in.readObject();
 			in.close();
 		} catch (Exception e) {
@@ -370,10 +394,8 @@ public class BicycleGarageManager {
 	/**
 	 * Write a HashMap to file
 	 * 
-	 * @param o
-	 *            The HashMap
-	 * @param filename
-	 *            The file
+	 * @param o The HashMap
+	 * @param filename The file
 	 * @return true if HashMap was written, otherwise false.
 	 */
 	public boolean writeHashMapToFile(HashMap<?, ?> o, String filename) {
@@ -392,8 +414,7 @@ public class BicycleGarageManager {
 	/**
 	 * Get list from file
 	 * 
-	 * @param filename
-	 *            The file
+	 * @param filename The file
 	 * @return The list from the file or a new list.
 	 */
 	public ArrayList<InOutLog> loadListFromFile(String filename) {
@@ -415,10 +436,8 @@ public class BicycleGarageManager {
 	/**
 	 * Write a list to file
 	 * 
-	 * @param o
-	 *            The list
-	 * @param filename
-	 *            The file
+	 * @param o The list
+	 * @param filename The file
 	 * @return true if list was written, otherwise false.
 	 */
 	public boolean writeListToFile(ArrayList<InOutLog> o, String filename) {
@@ -431,6 +450,7 @@ public class BicycleGarageManager {
 		} catch (Exception e) {
 			return false;
 		}
+		
 		return true;
 	}
 
@@ -441,6 +461,7 @@ public class BicycleGarageManager {
 	 * 
 	 */
 	class RemindTask extends TimerTask {
+
 		/**
 		 * Runs the timertask
 		 */

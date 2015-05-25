@@ -423,6 +423,9 @@ public class OperatorGUI {
 		}
 	}
 	
+	/**
+	 * Quit
+	 */
 	protected void quitButtonPressed() {
 		textArea.append("\n> Quit ...\n");
 		
@@ -459,7 +462,7 @@ public class OperatorGUI {
 	}
 	
 	/**
-	 * Prompt the user for a bike id (=bar code)
+	 * Prompt the user for a bike id (= barcode)
 	 * @return A string
 	 */
 	protected String getBikeId() {

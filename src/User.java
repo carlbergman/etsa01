@@ -14,21 +14,18 @@ public class User implements Serializable{
 	private static final long serialVersionUID = -8462305766075620662L;
 	
 	/**
-	 * Attributes
+	 * Other attributes
 	 */
-	private String pin; // Person pin code
+	private String pin; // Person pin
 	private String name; // Person name
 	private String ssn; // Personal id number
 
 	/**
 	 * User constructor
 	 * 
-	 * @param pin
-	 *            User pin code
-	 * @param name
-	 *            User name
-	 * @param ssn
-	 *            Social security number
+	 * @param pin User pin
+	 * @param name User name
+	 * @param ssn Social security number
 	 */
 	public User(String pin, String name, String ssn) {
 		this.pin = pin;
@@ -39,7 +36,7 @@ public class User implements Serializable{
 	/**
 	 * Get pin code
 	 * 
-	 * @return int the pin code
+	 * @return the pin code
 	 */
 	public String getPin() {
 		return pin;
@@ -48,16 +45,16 @@ public class User implements Serializable{
 	/**
 	 * Get name
 	 * 
-	 * @return String the name
+	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Get personal id number
+	 * Get ssn
 	 * 
-	 * @return String the personal id
+	 * @return the ssn
 	 */
 	public String getSsn() {
 		return ssn;

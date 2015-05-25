@@ -14,7 +14,7 @@ public class Bike implements Serializable {
 	private static final long serialVersionUID = -3497924117832596736L;
 
 	/**
-	 * Attributes
+	 * Other attributes
 	 */
 	private String barcode; // Bike identifier
 	private User user; // Bike owner
@@ -23,10 +23,8 @@ public class Bike implements Serializable {
 	/**
 	 * Bike constructor
 	 * 
-	 * @param barcode
-	 *            The barcode
-	 * @param user
-	 *            The user (owner)
+	 * @param barcode The barcode
+	 * @param user The owner
 	 */
 	public Bike(String id, User user) {
 		this.barcode = id;
@@ -37,7 +35,7 @@ public class Bike implements Serializable {
 	/**
 	 * Get the user
 	 * 
-	 * @return User the user
+	 * @return the user
 	 */
 	public User getUser() {
 		return user;
@@ -46,14 +44,14 @@ public class Bike implements Serializable {
 	/**
 	 * Get barcode
 	 * 
-	 * @return String the barcode
+	 * @return the barcode
 	 */
 	public String getId() {
 		return barcode;
 	}
 
 	/**
-	 * Get status (whether the system should be regarded as placed in the garage
+	 * Get check in status (whether the bike should be regarded as placed in the garage
 	 * by the system.)
 	 * 
 	 * @return true if the bike is in the garage, otherwise false
