@@ -106,7 +106,9 @@ public class BicycleGarageManager {
 		
 		// Check if it's time to validate the pin.
 		if (pinArray.size() >= 5) {
-
+			//Cancels timer
+			remind.cancel();
+			
 			// Get the pin as a string.			
 			StringBuilder sb = new StringBuilder();
 			for(char s : pinArray) {
